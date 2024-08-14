@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 12px;
+        padding: 12px 24px;
+        font-size: 18px;
+        border-radius: 6px;
+      }
+
+      .grid {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        gap: 10px;
+        grid-template-columns: repeat(auto-fill, 50px);
+        margin: 0 auto;
+      }
+
+      .box {
+        aspect-ratio: 1 / 1;
+        width: 50px;
+        border: 2px solid black;
+      }
+
+      .box.clicked {
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn" data-add-box>Create box</button>
+    <div class="grid">
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+    </div>
+
+    <div class="box"></div>
+    <div class="box"></div>
+
+    <script>
+      const addBoxButton = document.querySelector("[data-add-box]");
+      const grid = document.querySelector(".grid");
+      const boxes = document.querySelector(".box");
+
+      addBoxButton.addEventListener("click", () => {
+        const box = document.createElement("div");
+        box.classList.add("box");
+        grid.append(box);
+      });
+
+      function addGlobalEventListener(
+        type,
+        selector,
+        callBack,
+        parent = document
+      ) {
+        parent.addEventListener(type, (e) => {
+          if (e.target.matches(selector)) {
+            callBack(e);
+          }
+        });
+      }
+
+      addGlobalEventListener(
+        "click",
+        ".box",
+        (e) => {
+          e.target.classList.toggle("clicked");
+        },
+        grid
+      );
+    </script>
+  </body>
+</html>
